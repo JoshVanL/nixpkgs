@@ -3,6 +3,9 @@
 , google-cloud-sdk
 , system
 , snapshotPath
+, autoPatchelfHook
+, python3
+, gcc-unwrapped
 , ...
 }:
 
@@ -161,6 +164,11 @@ let
         # Write the snapshot file to the `.install` folder
         cp $snapshotPath $out/google-cloud-sdk/.install/${name}.snapshot.json
       '';
+      nativeBuildInputs = [
+        autoPatchelfHook
+        python3
+        gcc-unwrapped
+      ];
       passthru = {
         dependencies = filterForSystem dependencies;
       };
